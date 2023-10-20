@@ -25,13 +25,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           children: [
             TextField(
               controller: _newPasswordController,
-              decoration: InputDecoration(labelText: 'New Password', labelStyle: TextStyle(fontSize: 18),),
+              decoration: InputDecoration(labelText: 'New Password',
+                labelStyle: TextStyle(fontSize: 18),),
               obscureText: true,
               onChanged: (_) => checkPasswordMatch(),
             ),
             TextField(
               controller: _confirmPasswordController,
-              decoration: InputDecoration(labelText: 'Confirm Password', labelStyle: TextStyle(fontSize: 18),),
+              decoration: InputDecoration(labelText: 'Confirm Password',
+                labelStyle: TextStyle(fontSize: 18),),
               obscureText: true,
               onChanged: (_) => checkPasswordMatch(),
             ),
@@ -40,7 +42,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               onPressed: isButtonEnabled
                   ? () {
                 // Check if passwords match
-                if (_newPasswordController.text == _confirmPasswordController.text) {
+                if (_newPasswordController.text ==
+                    _confirmPasswordController.text) {
                   // Passwords match, navigate to the sign-in screen
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
@@ -60,9 +63,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   void checkPasswordMatch() {
     setState(() {
-      isButtonEnabled = _newPasswordController.text == _confirmPasswordController.text;
+      if (_newPasswordController.text.length >= 4 &&
+          _confirmPasswordController.text.length >= 4) {
+        isButtonEnabled =
+            _newPasswordController.text == _confirmPasswordController.text;
+      } else {
+        isButtonEnabled = false;
+      }
     });
   }
 }
-
 
